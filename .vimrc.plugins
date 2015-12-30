@@ -1,2 +1,4 @@
 Plugin 'scrooloose/nerdtree'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'klen/python-mode'
+Plugin 'tmux-plugins/vim-tmux'
