@@ -356,7 +356,7 @@
                 endif
             endfunction
 
-            nnoremap <leader>r :call NumberToggle()<CR>
+            nnoremap <leader>tr :call NumberToggle()<CR>
         """ }}}
         """ Toggle text wrapping, wrap on whole words {{{
         """ For more info see: http://stackoverflow.com/a/2470885/1076493
