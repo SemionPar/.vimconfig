@@ -1,35 +1,11 @@
-"-----------------------------------------"
-" Source: http://github.com/timss/vimconf "
-"-----------------------------------------"
-
-""" vimconf is not vi-compatible {{{
-    set nocompatible
-""" }}}
 """ Automatically create needed files and folders on first run (*nix only) {{{
     call system("mkdir -p $HOME/.vim/{swap,undo}")
     if !filereadable($HOME . "/.vimrc.plugins") | call system("touch $HOME/.vimrc.plugins") | endif
     if !filereadable($HOME . "/.vimrc.first") | call system("touch $HOME/.vimrc.first") | endif
     if !filereadable($HOME . "/.vimrc.last") | call system("touch $HOME/.vimrc.last") | endif
 """ }}}
-""" Vundle plugin manager {{{
-    """ Automatically setting up Vundle {{{
-    """ http://www.erikzaadi.com/2012/03/19/auto-installing-vundle-from-your-vimrc/
-        let has_vundle=1
-        if !filereadable($HOME."/.vim/bundle/Vundle.vim/README.md")
-            echo "Installing Vundle..."
-            echo ""
-            silent !mkdir -p $HOME/.vim/bundle
-            silent !git clone https://github.com/gmarik/Vundle.vim $HOME/.vim/bundle/Vundle.vim
-            let has_vundle=0
-        endif
-    """ }}}
-    """ Initialize Vundle {{{
-        filetype off                                " required to init
-        set rtp+=$HOME/.vim/bundle/Vundle.vim       " include vundle
-        call vundle#begin()                         " init vundle
-    """ }}}
-    """ Github repos, uncomment to disable a plugin {{{
-        Plugin 'gmarik/Vundle.vim'
+""" Vim-plug plugin manager {{{
+            call plug#begin('~/.vim/plugged')
 
         """ Local plugins (and only plugins in this file!) {{{
             if filereadable($HOME."/.vimrc.plugins")
@@ -38,69 +14,57 @@
         """ }}}
 
         " Edit files using sudo/su
-        Plugin 'chrisbra/SudoEdit.vim'
+        Plug 'chrisbra/SudoEdit.vim'
 
         " <Tab> everything!
-        Plugin 'ervandew/supertab'
+        Plug 'ervandew/supertab'
 
         " Fuzzy finder (files, mru, etc)
-        Plugin 'ctrlpvim/ctrlp.vim'
+        Plug 'ctrlpvim/ctrlp.vim'
 
         " A pretty statusline, bufferline integration
-        Plugin 'itchyny/lightline.vim'
-        Plugin 'bling/vim-bufferline'
+        Plug 'itchyny/lightline.vim'
+        Plug 'bling/vim-bufferline'
 
         " Easy... motions... yeah.
-        Plugin 'Lokaltog/vim-easymotion'
+        Plug 'Lokaltog/vim-easymotion'
 
         " Glorious colorscheme
-        Plugin 'nanotech/jellybeans.vim'
+        Plug 'nanotech/jellybeans.vim'
 
         " Super easy commenting, toggle comments etc
-        Plugin 'scrooloose/nerdcommenter'
+        Plug 'scrooloose/nerdcommenter'
 
         " Autoclose (, " etc
-        Plugin 'ivang/vim-autoclose'
+        Plug 'ivang/vim-autoclose'
 
         " Git wrapper inside Vim
-        Plugin 'tpope/vim-fugitive'
+        Plug 'tpope/vim-fugitive'
 
         " Handle surround chars like ''
-        Plugin 'tpope/vim-surround'
+        Plug 'tpope/vim-surround'
 
         " Align your = etc.
-        Plugin 'vim-scripts/Align'
+        Plug 'vim-scripts/Align'
 
         " Snippets like textmate
-        Plugin 'MarcWeber/vim-addon-mw-utils'
-        Plugin 'tomtom/tlib_vim'
-        Plugin 'honza/vim-snippets'
-        Plugin 'garbas/vim-snipmate'
+        Plug 'MarcWeber/vim-addon-mw-utils'
+        Plug 'tomtom/tlib_vim'
+        Plug 'honza/vim-snippets'
+        Plug 'garbas/vim-snipmate'
 
         " A fancy start screen, shows MRU etc.
-        Plugin 'mhinz/vim-startify'
+        Plug 'mhinz/vim-startify'
 
         " Vim signs (:h signs) for modified lines based off VCS (e.g. Git)
-        Plugin 'mhinz/vim-signify'
-
-        " Awesome syntax checker.
-        " REQUIREMENTS: See :h syntastic-intro
-        Plugin 'scrooloose/syntastic'
+        Plug 'mhinz/vim-signify'
 
         " Functions, class data etc.
         " REQUIREMENTS: (exuberant)-ctags
-        Plugin 'majutsushi/tagbar'
+        Plug 'majutsushi/tagbar'
+        
+        call plug#end()
     """ }}}
-    """ Finish Vundle stuff {{{
-        call vundle#end()
-    """ }}}
-    """ Installing plugins the first time, quits when done {{{
-        if has_vundle == 0
-            :silent! PluginInstall
-            :qa
-        endif
-    """ }}}
-""" }}}
 """ Local leading config, only for prerequisites and will be overwritten {{{
     if filereadable($HOME."/.vimrc.first")
         source $HOME/.vimrc.first
@@ -120,10 +84,6 @@
                 autocmd BufNewFile,BufRead *.txt set ft=sh tw=79
             augroup END
         """ }}}
-        """ 256 colors for maximum jellybeans bling. See commit log for info {{{
-            if (&term =~ "xterm") || (&term =~ "screen")
-                set t_Co=256
-            endif
         """ }}}
         """ Custom highlighting, where NONE uses terminal background {{{
             function! CustomHighlighting()
@@ -145,7 +105,6 @@
         set scrolloff=3                             " lines above/below cursor
         set showcmd                                 " show cmds being typed
         set title                                   " window title
-        set vb t_vb=                                " disable beep and flashing
         set wildignore=*.a,*.o,*.so,*.pyc,*.jpg,
                     \*.jpeg,*.png,*.gif,*.pdf,*.git,
                     \*.swp,*.swo                    " tab completion ignores
@@ -155,12 +114,6 @@
         """ Should generally be set in your environment LOCALE/$LANG
             " set encoding=utf-8                    " default $LANG/latin1
             " set fileencoding=utf-8                " default none
-        """ }}}
-        """ Gvim {{{
-            set guifont=DejaVu\ Sans\ Mono\ 9
-            set guioptions-=m                       " remove menubar
-            set guioptions-=T                       " remove toolbar
-            set guioptions-=r                       " remove right scrollbar
         """ }}}
     """ }}}
 """ }}}
@@ -181,8 +134,7 @@
     set shortmess+=I                                " disable startup message
     set splitbelow                                  " splits go below w/focus
     set splitright                                  " vsplits go right w/focus
-    set ttyfast                                     " for faster redraws etc
-    set ttymouse=xterm2                             " experimental
+    "set ttymouse=xterm2                             " experimental
     """ Folding {{{
         set foldcolumn=0                            " hide folding column
         set foldmethod=indent                       " folds using indent
@@ -379,29 +331,6 @@
 
             nnoremap <leader>ld :call DeleteMultipleEmptyLines()<CR>
         """ }}}
-        """ Split to relative header/source {{{
-            function! SplitRelSrc()
-                let s:fname = expand("%:t:r")
-
-                if expand("%:e") == "h"
-                    set nosplitright
-                    exe "vsplit" fnameescape(s:fname . ".cpp")
-                    set splitright
-                elseif expand("%:e") == "cpp"
-                    exe "vsplit" fnameescape(s:fname . ".h")
-                endif
-            endfunction
-
-            nnoremap <leader>le :call SplitRelSrc()<CR>
-        """ }}}
-        """ Strip trailing whitespace, return to cursor at save {{{
-            function! <SID>StripTrailingWhitespace()
-                let l = line(".")
-                let c = col(".")
-                %s/\s\+$//e
-                call cursor(l, c)
-            endfunction
-
             augroup StripTrailingWhitespace
                 autocmd!
                 autocmd FileType c,cpp,cfg,conf,css,html,perl,python,sh,tex
@@ -413,10 +342,6 @@
     """ Plugins {{{
         " Toggle tagbar (definitions, functions etc.)
         map <F1> :TagbarToggle<CR>
-
-        " Syntastic - toggle error list. Probably should be toggleable.
-        noremap <silent><leader>lo :Errors<CR>
-        noremap <silent><leader>lc :lcl<CR>
     """ }}}
 """ }}}
 """ Plugin settings {{{
@@ -448,29 +373,10 @@
         " Used in lightline.vim
         let g:tagbar_status_func = 'TagbarStatusFunc'
     """ }}}
-    """ Syntastic {{{
-    """ This is largely up to your own usage, and override these
-    """ changes if be needed. This is merely an exemplification.
-    """ TODO: not be filetype, but filename?
-        let g:syntastic_cpp_check_header = 1
-        let g:syntastic_cpp_compiler_options = ' -std=c++0x'
-        let g:syntastic_mode_map = {
-            \ 'mode': 'passive',
-            \ 'active_filetypes':
-                \ ['c', 'cpp', 'perl', 'python'] }
-    """ }}}
-    """ Netrw - the bundled (network) file and directory browser {{{
+    """ Netrw - the bundled (network) file and directory browser {{{}
         let g:netrw_banner = 0
         let g:netrw_list_hide = '^\.$'
         let g:netrw_liststyle = 3
-    """ }}}
-    """ Automatically remove preview window after autocomplete {{{
-    """ (mainly for clang_complete)
-        augroup RemovePreview
-            autocmd!
-            autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-            autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-        augroup END
     """ }}}
     """ Lightline {{{
         let g:lightline = {
@@ -484,7 +390,7 @@
             \     'right': [
             \         ['lineinfo'],
             \         ['percent'],
-            \         ['fileformat', 'fileencoding', 'filetype', 'syntastic']
+            \         ['fileformat', 'fileencoding', 'filetype']
             \     ]
             \ },
             \ 'component': {
@@ -500,30 +406,24 @@
             \     'fileencoding' : 'MyFileencoding',
             \     'filetype'     : 'MyFiletype'
             \ },
-            \ 'component_expand': {
-            \     'syntastic': 'SyntasticStatuslineFlag',
-            \ },
-            \ 'component_type': {
-            \     'syntastic': 'middle',
-            \ },
             \ 'subseparator': {
             \     'left': '|', 'right': '|'
             \ }
             \ }
 
-        " Ensure that each mode indicator is the same size and casing
-        let g:lightline.mode_map = {
-            \ 'n'      : ' N ',
-            \ 'i'      : ' I ',
-            \ 'R'      : ' R ',
-            \ 'v'      : ' V ',
-            \ 'V'      : 'V-L',
-            \ 'c'      : ' C ',
-            \ "\<C-v>" : 'V-B',
-            \ 's'      : ' S ',
-            \ 'S'      : 'S-L',
-            \ "\<C-s>" : 'S-B',
-            \ '?'      : '      ' }
+            " Ensure that each mode indicator is the same size and casing
+            let g:lightline.mode_map = {
+                        \ 'n'      : ' N ',
+                        \ 'i'      : ' I ',
+                        \ 'R'      : ' R ',
+                        \ 'v'      : ' V ',
+                        \ 'V'      : 'V-L',
+                        \ 'c'      : ' C ',
+                        \ "\<C-v>" : 'V-B',
+                        \ 's'      : ' S ',
+                        \ 'S'      : 'S-L',
+                        \ "\<C-s>" : 'S-B',
+                        \ '?'      : '      ' }
 
         function! MyMode()
             let fname = expand('%:t')
@@ -611,19 +511,6 @@
             let g:lightline.fname = a:fname
             return lightline#statusline(0)
         endfunction
-
-        function! s:syntastic()
-            SyntasticCheck
-            call lightline#update()
-        endfunction
-
-        augroup AutoSyntastic
-            autocmd!
-            execute "autocmd FileType " .
-                        \join(g:syntastic_mode_map["active_filetypes"], ",") .
-                        \" autocmd BufWritePost <buffer> :call s:syntastic()"
-        augroup END
-    """ }}}
 """ }}}
 """ Local ending config, will overwrite anything above. Generally use this. {{{
     if filereadable($HOME."/.vimrc.last")

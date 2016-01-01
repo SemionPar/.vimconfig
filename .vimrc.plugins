@@ -1,4 +1,5 @@
-Plugin 'scrooloose/nerdtree'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'klen/python-mode'
-Plugin 'tmux-plugins/vim-tmux'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'klen/python-mode', { 'for': 'python' }
+Plug 'tmux-plugins/vim-tmux'
+Plug 'benekastah/neomake'

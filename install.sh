@@ -9,3 +9,5 @@ echo "ln -sfn $HOME/.vimconfig/.vimrc.last $HOME/.vimrc.last"
 ln -sfn $HOME/.vimconfig/.vimrc.last $HOME/.vimrc.last
 echo "ln -sfn $HOME/.vimconfig/.vimrc.plugins $HOME/.vimrc.plugins"
 ln -sfn $HOME/.vimconfig/.vimrc.plugins $HOME/.vimrc.plugins
+echo "ln -sfn $HOME/.vimconfig/.vimrc.first $HOME/.vimrc.first"
+ln -sfn $HOME/.vimconfig/.vimrc.first $HOME/.vimrc.first

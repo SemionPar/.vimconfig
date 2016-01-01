@@ -7,8 +7,13 @@ nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
 nnoremap <silent> <c-/> :TmuxNavigatePrevious<cr> 
-" Start NERDTree automatically
-autocmd VimEnter * NERDTree
+
+" Let CtrlP search for dotfiles
+let g:ctrlp_show_hidden = 1
+
 " Switch to absolute numbers when losing focus
 :au FocusLost * :set number
 :au FocusGained * :set relativenumber
+
+" Start with relative numbers on
+set relativenumber
