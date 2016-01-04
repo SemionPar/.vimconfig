@@ -48,10 +48,10 @@
         Plug 'vim-scripts/Align'
 
         " Snippets like textmate
-        Plug 'MarcWeber/vim-addon-mw-utils'
-        Plug 'tomtom/tlib_vim'
-        Plug 'honza/vim-snippets'
-        Plug 'garbas/vim-snipmate'
+        "Plug 'MarcWeber/vim-addon-mw-utils'
+        "Plug 'tomtom/tlib_vim'
+        "Plug 'honza/vim-snippets'
+        "Plug 'garbas/vim-snipmate'
 
         " A fancy start screen, shows MRU etc.
         Plug 'mhinz/vim-startify'
@@ -71,11 +71,13 @@
     endif
 """ }}}
 """ User interface {{{
-    """ Syntax highlighting {{{
+    """ Syntax highlighting and colorscheme {{{
         filetype plugin indent on                   " detect file plugin+indent
         syntax on                                   " syntax highlighting
         set background=dark                         " we're using a dark bg
-        colorscheme jellybeans                      " colorscheme from plugin
+        set t_Co=256
+        let g:solarized_termcolors=256
+        colorscheme solarized                       " colorscheme from plugin
         """ Force behavior and filetypes, and by extension highlighting {{{
             augroup FileTypeRules
                 autocmd!
@@ -85,24 +87,12 @@
             augroup END
         """ }}}
         """ }}}
-        """ Custom highlighting, where NONE uses terminal background {{{
-            function! CustomHighlighting()
-                highlight Normal ctermbg=NONE
-                highlight NonText ctermbg=NONE
-                highlight LineNr ctermbg=NONE
-                highlight SignColumn ctermbg=NONE
-                highlight SignColumn guibg=#151515
-                highlight CursorLine ctermbg=235
-            endfunction
-
-            call CustomHighlighting()
-        """ }}}
     """ }}}
     """ Interface general {{{
         set cursorline                              " hilight cursor line
         set more                                    " ---more--- like less
         set number                                  " line numbers
-        set scrolloff=3                             " lines above/below cursor
+        set scrolloff=5                             " lines above/below cursor
         set showcmd                                 " show cmds being typed
         set title                                   " window title
         set wildignore=*.a,*.o,*.so,*.pyc,*.jpg,
@@ -116,7 +106,6 @@
             " set fileencoding=utf-8                " default none
         """ }}}
     """ }}}
-""" }}}
 """ General settings {{{
     set hidden                                      " buffer change, more undo
     set history=1000                                " default 20
@@ -240,10 +229,6 @@
         vmap <C-up> [egv
         vmap <C-down> ]egv
 
-        " Scroll up/down lines from 'scroll' option, default half a screen
-        map <C-j> <C-d>
-        map <C-k> <C-u>
-
         " Treat wrapped lines as normal lines
         nnoremap j gj
         nnoremap k gk
@@ -331,6 +316,14 @@
 
             nnoremap <leader>ld :call DeleteMultipleEmptyLines()<CR>
         """ }}}
+        """ Strip trailing whitespace, return to cursor at save {{{
+            function! <SID>StripTrailingWhitespace()
+                let l = line(".")
+                let c = col(".")
+                %s/\s\+$//e
+                call cursor(l, c)
+            endfunction
+
             augroup StripTrailingWhitespace
                 autocmd!
                 autocmd FileType c,cpp,cfg,conf,css,html,perl,python,sh,tex

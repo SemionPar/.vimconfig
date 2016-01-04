@@ -1,5 +1,21 @@
+" Amazing Tree file explorer
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+
+" Another file drawer
+Plug 'tpope/vim-vinegar'
+
+" Tmux and Vim shortcuts
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'klen/python-mode', { 'for': 'python' }
+
+" Vim sessions when in tmux
 Plug 'tmux-plugins/vim-tmux'
+
+" Neomake for syntax checks
 Plug 'benekastah/neomake'
+
+" Python IDE
+Plug 'klen/python-mode', { 'for': 'python' }
+
+" REQUIREMENTS: sudo apt-get install silversearcher-ag
+" Search everything
+Plug 'rking/ag.vim'
