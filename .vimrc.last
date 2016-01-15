@@ -14,8 +14,14 @@ let g:ctrlp_show_hidden = 1
 " Switch to absolute numbers when losing focus
 :au FocusLost * :set number
 :au FocusGained * :set relativenumber
+
 " Open vimrc files with syntax highlighting
 au! BufNewFile,BufRead */.vimrc/* set filetype=vim
+
 " Start with relative numbers on
 set relativenumber
 
+" Set indent guides
+"set background=dark
+"hi IndentGuidesOdd  ctermbg=black
+"hi IndentGuidesEven ctermbg=darkgrey

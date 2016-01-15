@@ -19,3 +19,6 @@ Plug 'klen/python-mode', { 'for': 'python' }
 " REQUIREMENTS: sudo apt-get install silversearcher-ag
 " Search everything
 Plug 'rking/ag.vim'
+
+" Indent guides
+Plug 'nathanaelkane/vim-indent-guides'
